@@ -21,7 +21,7 @@ namespace WebAPITests
         private readonly List<Employee> _employees;
         private readonly HttpClient _httpClient;
         private readonly EmployeeContext _employeeContext;
-        private readonly DbContextOptions<EmployeeContext> _options, _inMemoryOptions;
+        private readonly DbContextOptions<EmployeeContext> _options;
 
         public EmployeesControllerTests(WebApplicationFactory<WebAPI.Startup> fixture)
         {
