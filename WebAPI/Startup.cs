@@ -20,7 +20,8 @@ namespace WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<EmployeeContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddControllers();
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddControllers().AddNewtonsoftJson();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
