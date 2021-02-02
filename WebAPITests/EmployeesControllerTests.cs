@@ -73,7 +73,7 @@ namespace WebAPITests
         public void Get_SholudReturnEmploeeByName_WhenIsExistInDatabase()
         {
             var mockRepository = new Mock<IRepository<Employee>>();
-            mockRepository.Setup(repo => repo.Data).Returns(_employees);
+            mockRepository.Setup(repo => repo.GetEmployeeByName("Ivan")).Returns(_employees);
 
             var controller = new EmployeesController(mockRepository.Object);
 
@@ -119,10 +119,10 @@ namespace WebAPITests
             var response = await _httpClient.GetAsync("https://localhost:5000/api/employees/Ivan");
             var content = await response.Content.ReadAsStringAsync();
 
-            var employee = JsonConvert.DeserializeObject<Employee>(content);
+            var employees = JsonConvert.DeserializeObject<IEnumerable<Employee>>(content);
 
             response.StatusCode.Should().Be(HttpStatusCode.OK);
-            employee.Should().NotBeNull();
+            employees.Should().NotBeNull();
         }
         
         [Fact]
@@ -153,13 +153,17 @@ namespace WebAPITests
         [Fact]
         public async void Post_ShouldReturnOk_WhenAddNewEmployee()
         {
-            if(_employeeContext.Employees.Contains(_employees.First()))
-                _employeeContext.Employees.Remove(_employees.First());
+            var fromDatabase = await _employeeContext.Employees.ToListAsync();
+
+            foreach (var employee in fromDatabase.Where(e => e.FirstName == _employees.First().FirstName))
+                _employeeContext.Remove(employee);
+
+            await _employeeContext.SaveChangesAsync();
 
             var response = await _httpClient.PostAsJsonAsync("https://localhost:5000/api/employees", _employees.First());
 
-            var fromDatabase = await _employeeContext.Employees.ToListAsync();
-             
+            fromDatabase = await _employeeContext.Employees.ToListAsync();
+
             fromDatabase.Select(data => data.LastName).Should().Contain(_employees.First().LastName);
         }
 

@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using WebAPI.Models;
 
 namespace WebAPI.DAL
 {
@@ -6,5 +8,6 @@ namespace WebAPI.DAL
     {
         IEnumerable<T> Data { get; }
         void Add(T obj);
+        IEnumerable<T> GetEmployeeByName(string name);
     }
 }

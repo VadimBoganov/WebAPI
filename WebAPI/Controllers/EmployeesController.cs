@@ -32,14 +32,14 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("{name}")]
-        public ActionResult<Employee> GetByName(string name)
+        public ActionResult<IEnumerable<Employee>> GetByName(string name)
         {
-            var employee = _repository.Data.FirstOrDefault(e => e.FirstName == name);
+            var employees = _repository.GetEmployeeByName(name);
 
-            if (employee == null)
+            if (employees.Count() == 0)
                 return NotFound($"Employee with name {name} doesn't exist...");
 
-            return employee;
+            return employees.ToList();
         }
 
         [HttpGet("sumSalary")]
