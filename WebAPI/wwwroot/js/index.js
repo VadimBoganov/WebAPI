@@ -12,7 +12,7 @@ let addEmployee = () => {
     const firstNameInput = document.querySelector('#first-name');
     const lastNameInput = document.querySelector('#last-name');
     const rateInput = document.querySelector('#rate');
-    const typeEmployeeInput = document.querySelector('#descriminator');
+    const typeEmployeeInput = document.querySelector('#discriminator');
 
     const employee = {
         firstName: firstNameInput.value,
