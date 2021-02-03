@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Web API Frontend</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+    <h1>Web API Requests</h1>
+    <div class="container">
+        <h3>Employees</h3>
+        <table>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Salary</th>
+            </tr>
+            <tbody id="employees"></tbody>
+        </table>
+        <form>
+            <input id="prev" class="page" type="button" value="prev" onclick="" />
+            <input id="next" class="page" type="button" value="next" onclick="" />
+        </form>
+    </div>
+
+    <div class="container">
+        <h3>Get Employee By Name</h3>
+        <form action="javascript:void(0);" method="get" , onsubmit="getEmployeeByName(document.querySelector('#name').value)">
+            <input type="text" id="name" placeholder="Input First Name" />
+            <input type="submit" value="Search" />
+        </form>
+        <p id="employeeByName"></p>
+    </div>
+
+    <div class="container">
+        <h3>Get Max Salary</h3>
+        <input type="button" value="Search" onclick="getMaxSalary()" />
+        <p id="maxSalary"></p>
+    </div>
+
+    <div class="container">
+        <h3>Get Sum Salaries</h3>
+        <input type="button" value="Search" onclick="getSumSalaries()" />
+        <p id="sumSalaies"></p>
+    </div>
+
+    <div class="container">
+        <h3>Add</h3>
+        <form action="javascript:void(0);" method="POST" onsubmit="addEmployee()">
+            <input type="text" id="first-name" placeholder="First Name">
+            <input type="text" id="last-name" placeholder="Last Name">
+            <input type="text" id="rate" placeholder="Rate">
+            <input type="text" id="descriminator" placeholder="Type employee">
+            <input type="submit" value="Add">
+        </form>
+    </div>
+
+    <script src="js/index.js"></script>
+</body>
+</html>
